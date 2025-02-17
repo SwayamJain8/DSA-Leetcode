@@ -4,14 +4,20 @@ class Solution {
         int ans[] = new int[n];
         int l[] = new int[n];
         int r[] = new int[n];
-        l[0] = 1;
-        for(int i = 1; i < n; i++) {
-            l[i] = nums[i-1] * l[i-1];
+        
+        for(int i = 0; i < n; i++) {
+            if(i == 0) {
+                l[i] = 1;
+            } else {
+                l[i] = nums[i-1] * l[i-1];
+            }
+            if(n-1-i == n-1) {
+                r[n-1-i] = 1;
+            } else {
+                r[n-i-1] = nums[n-i] * r[n-i];
+            }
         }
-        r[n-1] = 1;
-        for(int i = n-2; i >= 0; i--) {
-            r[i] = nums[i+1] * r[i+1];
-        }
+        
         for(int i = 0; i < n; i++) {
             ans[i] = l[i] * r[i];
         }
