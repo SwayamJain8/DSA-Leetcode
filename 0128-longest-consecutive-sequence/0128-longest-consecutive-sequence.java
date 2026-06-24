@@ -3,25 +3,30 @@ class Solution {
 
         if(nums.length == 0) return 0;
 
-        int maxCount = 1;
-        int count = 1;
+        Set<Integer> numSet = new HashSet<>();
 
-        Arrays.sort(nums);
+        for(int i = 0; i < nums.length; i++) {
+            numSet.add(nums[i]);
+        }
 
-        for(int i = 0; i < nums.length - 1; i++) {
+        int lcs = 1;
 
-            if(nums[i] == nums[i + 1]) {
+        for(int num : numSet) {
+            if(numSet.contains(num-1)) {
                 continue;
             }
+            else {
+                int currNum = num;
+                int currSub = 1;
+                while(numSet.contains(currNum+1)) {
+                    currNum++;
+                    currSub++;
+                }
 
-            if(nums[i + 1] - nums[i] == 1) {
-                count++;
-            } else {
-                maxCount = Math.max(maxCount, count);
-                count = 1;
+                lcs = Math.max(currSub, lcs);
             }
         }
 
-        return Math.max(maxCount, count);
+        return lcs;
     }
 }
